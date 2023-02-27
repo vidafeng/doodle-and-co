@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
   return (
     <div>
       <Head>
-        <title>E-Commerce App</title>
+        <title>Doodle & Co</title>
       </Head>
       <Box>
         <Flex
@@ -51,9 +51,9 @@ const Layout = ({ children }) => {
                 fontSize={"sm"}
                 fontWeight={600}
                 color={"white"}
-                bg={"green.400"}
+                bg={"pink.500"}
                 href={"#"}
-                _hover={{ bg: "green.300" }}
+                _hover={{ bg: "pink.400" }}
               >
                 Sign Up
               </Button>
