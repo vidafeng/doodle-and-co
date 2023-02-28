@@ -1,4 +1,4 @@
-const data = {
+export const data = {
   products: [
     {
       id: 1,
@@ -30,7 +30,7 @@ const data = {
     },
     {
       id: 5,
-      title: "Cozy beanie",
+      title: "Cozy Beanie",
       description: "Cozy beanie for the winter blues",
       price: 35,
       image: "/a-hat.jpg",
@@ -43,32 +43,69 @@ const data = {
       image: "/a-jacket.jpg",
     },
     {
-      id: 6,
-      title: "Silver Parka",
-      description: "Silver shiny jacket to keep the pooch warm in style",
+      id: 7,
+      title: "Blue Plaid Paw Jacket",
+      description: "Blue plaid to keep the pooch warm in style",
       price: 75,
-      image: "/a-jacket.jpg",
+      image: "/a-jacket2.jpg",
     },
     {
-      id: 7,
+      id: 8,
+      title: "Striped Navy Sweater",
+      description: "Striped navy sweater",
+      price: 35,
+      image: "/a-sweater3.jpg",
+    },
+    {
+      id: 9,
+      title: "Red Knitted Sweater",
+      description: "Red knitted sweater",
+      price: 35,
+      image: "/a-sweater2.jpg",
+    },
+
+    {
+      id: 10,
       title: "Red Sweatshirt",
       description: "Red knitted sweatshirt with cuffed sleeves",
       price: 35,
       image: "/a-sweater.jpg",
     },
     {
-      id: 8,
+      id: 11,
       title: "Striped Tie",
       description: "Silky red and navy striped necktie",
       price: 35,
       image: "/a-tie.jpg",
     },
     {
-      id: 9,
+      id: 12,
       title: "Sunday Head Scarf",
       description: "Blue head scarf",
       price: 35,
       image: "/a-wrap.jpg",
+    },
+    {
+      id: 13,
+      title: "Dog Bed",
+      description: "Navy dog bed",
+      price: 65,
+      image: "/a-bed.jpg",
+    },
+    {
+      id: 14,
+      title: "Treats",
+      description: "Chicken and salmon treats",
+      price: 15,
+      image: "/kibble.jpg",
+    },
+    {
+      id: 15,
+      title: "Pup Food Bowl Station",
+      description:
+        "Dishwasher safe food bowl to feed your pooch their daily meals with slip resistant mat",
+      price: 35,
+      image: "/foodbowl.jpg",
     },
   ],
 };
