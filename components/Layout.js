@@ -82,8 +82,9 @@ const Layout = ({ children }) => {
             <Text
               fontFamily={"heading"}
               color={useColorModeValue("gray.800", "white")}
+              align={"center"}
             >
-              Copyright 2023, Webcoded
+              Copyright 2023 <br /> Doodle & Co.
             </Text>
           </Flex>
         </Flex>

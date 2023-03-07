@@ -25,8 +25,8 @@ const ProductPage = () => {
   }
 
   return (
-    <Container>
-      <SimpleGrid columns={[1, 2]}>
+    <Container maxW={"container.xl"} my={3}>
+      <SimpleGrid columns={[1, 2]} spacing={2}>
         <Flex>
           <Image
             src={`/images${product.image}`}
@@ -47,11 +47,34 @@ const ProductPage = () => {
             >
               {product.title}
             </Heading>
-            <Text>$ {product.price}</Text>
+            <Text
+              color={useColorModeValue("gray.900", "gray.400")}
+              fontWeight={300}
+              fontSize={"2xl"}
+            >
+              $ {product.price}
+            </Text>
           </Box>
-          <Text>{product.description}</Text>
+          <Text
+            color={useColorModeValue("gray.500", "gray.400")}
+            fontWeight={300}
+            fontSize={"lg"}
+          >
+            {product.description}
+          </Text>
           <Flex flexGrow={1} alignItems={"end"}>
-            <Button>Add to Cart</Button>
+            <Button
+              rounded={"md"}
+              w={"full"}
+              mt={8}
+              py={6}
+              size={"lg"}
+              bg={useColorModeValue("gray.800", "gray.50")}
+              color={useColorModeValue("white", "gray.400")}
+              textTransform="uppercase"
+            >
+              Add to Cart
+            </Button>
           </Flex>
         </Stack>
       </SimpleGrid>
