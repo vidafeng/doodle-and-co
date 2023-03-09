@@ -1,21 +1,26 @@
 import mongoose from "mongoose";
 
+// object that will hold connection
 const connection = {};
 
+// connections are async
 async function connect() {
+  console.log("inside connect");
   if (connection.isConnected) {
     console.log("already connected");
     return;
   }
+
   if (mongoose.connections.length > 0) {
     connection.isConnected = mongoose.connections[0].readyState;
     if (connection.isConnected === 1) {
       console.log("using previous connection");
       return;
     }
-    // if it is not ready
+    // if it is not ready disconnect
     await mongoose.disconnect();
   }
+
   const db = await mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -24,6 +29,7 @@ async function connect() {
   connection.isConnected = db.connections[0].readyState;
 }
 
+// disconnect function
 async function disconnect() {
   if (connection.isConnected) {
     // if in production, disconenct
