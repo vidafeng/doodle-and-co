@@ -5,7 +5,6 @@ const connection = {};
 
 // connections are async
 async function connect() {
-  console.log("inside connect");
   if (connection.isConnected) {
     console.log("already connected");
     return;
