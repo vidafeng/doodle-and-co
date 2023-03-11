@@ -30,7 +30,7 @@ const ProductPage = () => {
         <Flex>
           <Image
             src={`/images${product.image}`}
-            alt={product.title}
+            alt={product.name}
             rounded={"md"}
             align={"center"}
             fit={"cover"}
@@ -45,7 +45,7 @@ const ProductPage = () => {
               fontWeight={600}
               fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
             >
-              {product.title}
+              {product.name}
             </Heading>
             <Text
               color={useColorModeValue("gray.900", "gray.400")}

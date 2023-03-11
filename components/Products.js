@@ -20,13 +20,13 @@ const Products = () => {
               <Link href={`/product/${product.id}`}>
                 <Image
                   src={`/images${product.image}`}
-                  alt={product.title}
+                  alt={product.name}
                   height={230}
                   width={230}
                   style={{ objectFit: "cover", height: "230px" }}
                 />
                 <Box py={1} px={2}>
-                  <h3>{product.title}</h3>
+                  <h3>{product.name}</h3>
                   <div>${product.price}</div>
                 </Box>
               </Link>
