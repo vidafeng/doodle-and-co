@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <>
       <main className={styles.main}>
-        <Products />
+        <Products data={products} />
       </main>
     </>
   );
