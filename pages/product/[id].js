@@ -1,6 +1,8 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { data } from "../../utils/data";
+import db from "../../utils/db";
+import Product from "../../models/Product";
 import {
   Container,
   SimpleGrid,
@@ -14,11 +16,14 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-const ProductPage = () => {
+const ProductPage = (props) => {
   const router = useRouter();
   const { id } = router.query;
 
-  const product = data.products.find((product) => product.id === parseInt(id));
+  // dummy data
+  // const product = data.products.find((product) => product.id === parseInt(id));
+
+  const { product } = props;
 
   if (!product) {
     return <div>Product not found</div>;
@@ -81,5 +86,22 @@ const ProductPage = () => {
     </Container>
   );
 };
+
+// nextjs getServerSideProps
+// when page is requested, will pre-render the page
+// props/data from getServideSide will be passed to the page
+export async function getServerSideProps(context) {
+  const { params } = context;
+  const { id } = params;
+
+  // make connection to db
+  await db.connect();
+  const product = await Product.findOne({ id }).lean();
+  await db.disconnect();
+
+  return {
+    props: { product: db.convertDocToObj(product) },
+  };
+}
 
 export default ProductPage;

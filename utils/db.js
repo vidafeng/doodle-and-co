@@ -42,5 +42,14 @@ async function disconnect() {
   }
 }
 
-const db = { connect, disconnect };
+// convert timestamps
+function convertDocToObj(doc) {
+  doc._id = doc.id.toString();
+  doc.createdAt = doc.createdAt.toString();
+  doc.updatedAt = doc.updatedAt.toString();
+
+  return doc;
+}
+
+const db = { connect, disconnect, convertDocToObj };
 export default db;
