@@ -53,7 +53,8 @@ const ProductPage = (props) => {
               {product.name}
             </Heading>
             <Text
-              color={useColorModeValue("gray.900", "gray.400")}
+              color="gray.900"
+              _dark={{ color: "gray.400" }}
               fontWeight={300}
               fontSize={"2xl"}
             >
@@ -61,7 +62,8 @@ const ProductPage = (props) => {
             </Text>
           </Box>
           <Text
-            color={useColorModeValue("gray.500", "gray.400")}
+            color="gray.500"
+            _dark={{ color: "gray.400" }}
             fontWeight={300}
             fontSize={"lg"}
           >
@@ -74,8 +76,9 @@ const ProductPage = (props) => {
               mt={8}
               py={6}
               size={"lg"}
-              bg={useColorModeValue("gray.800", "gray.50")}
-              color={useColorModeValue("white", "gray.400")}
+              bg="gray.800"
+              _dark={{ bg: "gray.50", color: "gray.700" }}
+              color="white"
               textTransform="uppercase"
             >
               Add to Cart
