@@ -12,7 +12,6 @@ import {
   Stack,
   Box,
   Text,
-  useColorModeValue,
   Button,
 } from "@chakra-ui/react";
 

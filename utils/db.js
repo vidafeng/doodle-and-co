@@ -42,7 +42,7 @@ async function disconnect() {
   }
 }
 
-// convert timestamps
+// convert timestamps from db models
 function convertDocToObj(doc) {
   doc._id = doc.id.toString();
   doc.createdAt = doc.createdAt.toString();
