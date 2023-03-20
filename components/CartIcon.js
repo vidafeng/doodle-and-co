@@ -27,6 +27,7 @@ function CartIcon() {
           top={0}
           right={0}
           bg={hoverColor[colorMode]}
+          color={fontColor[colorMode]}
           rounded="sm"
           p={1}
         >

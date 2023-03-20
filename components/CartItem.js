@@ -1,13 +1,5 @@
 import React, { useContext } from "react";
-import {
-  Flex,
-  Stack,
-  Image,
-  Box,
-  Text,
-  useColorMode,
-  CloseButton,
-} from "@chakra-ui/react";
+import { Flex, Stack, Image, Box, Text, CloseButton } from "@chakra-ui/react";
 import { CartContext } from "../context/CartContext";
 
 const CartItem = ({ item }) => {
@@ -21,17 +13,18 @@ const CartItem = ({ item }) => {
       <Stack direction={"row"} spacing="5" width="full">
         <Image
           src={`/images${item.image}`}
-          alt={image.title}
+          alt={item.name}
           width="120px"
           height="120px"
           loading="lazy"
         />
         <Box pt="4">
           <Stack spacing="0.5">
-            <Text fontWeight="medium">{item.title}</Text>
+            <Text fontWeight="medium">{item.name}</Text>
             <Text
               fontSize="sm"
-              color={useColorMode("gray.600", "gray.400")}
+              color="gray.600"
+              _dark={{ color: "gray.400" }}
             ></Text>
           </Stack>
         </Box>
@@ -40,7 +33,8 @@ const CartItem = ({ item }) => {
         <Text
           fontWeight="medium"
           fontSize="lg"
-          color={useColorMode("gray.800", "gray.200")}
+          color="gray.800"
+          _dark={{ color: "gray.200" }}
         >
           {item.price}
         </Text>
