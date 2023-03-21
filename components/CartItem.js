@@ -21,11 +21,9 @@ const CartItem = ({ item }) => {
         <Box pt="4">
           <Stack spacing="0.5">
             <Text fontWeight="medium">{item.name}</Text>
-            <Text
-              fontSize="sm"
-              color="gray.600"
-              _dark={{ color: "gray.400" }}
-            ></Text>
+            <Text fontSize="sm" color="gray.600" _dark={{ color: "gray.400" }}>
+              {item.description}
+            </Text>
           </Stack>
         </Box>
       </Stack>
@@ -36,7 +34,7 @@ const CartItem = ({ item }) => {
           color="gray.800"
           _dark={{ color: "gray.200" }}
         >
-          {item.price}
+          ${item.price}
         </Text>
         <CloseButton onClick={() => removeFromCart(item.id)} />
       </Flex>

@@ -3,16 +3,16 @@ import {Stack, Heading, Flex, Button} from '@chakra-ui/react'
 
 const OrderSummary = ({total}) => {
   return (
-<Stack>
+<Stack spacing='8' borderWidth='1px' rounded='lg' padding='8' width='full'>
     <Heading size='md'>Order Summary</Heading>
-    <Stack>
-        <Flex>
+    <Stack spacing='6'>
+        <Flex justifyContent='space-between'>
             <Heading size='sm'>{`Subtotal `}</Heading>
             <Heading size='sm'>{`$ ${total}`}</Heading>
         </Flex>
     </Stack>
     <Button siz='lg' fontSize='md' bg='gray.900' color='white' _dark={{ bg: "gray.50", color: "gray.900" }}
-></Button>
+>Checkout</Button>
 </Stack>
   )
 }
