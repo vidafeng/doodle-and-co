@@ -11,8 +11,19 @@ import {
   FormLabel,
   Input,
   useBreakpointValue,
+  FormHelperText,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import * as yup from "yup";
+
+const signUpSchema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .required("Password is required"),
+});
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
@@ -21,11 +32,26 @@ const SignUpPage = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     // dont want page to reload until we capture email and pw
     e.preventDefault();
 
-    //   call login function
+    try {
+      await signUpSchema.validate(
+        { name, email, password },
+        { abortEarly: false }
+      );
+    } catch (err) {
+      const validationErrors = {};
+      if (err instanceof yup.ValidationError) {
+        err.inner.forEach((error) => {
+          validationErrors[error.path] = error.message;
+        });
+      }
+      setError(validationErrors);
+      return;
+    }
+
     //   clear the state
     setEmail("");
     setPassword("");
@@ -70,6 +96,9 @@ const SignUpPage = () => {
                   placeholder="Name"
                   onChange={(event) => setName(event.target.value)}
                 ></Input>
+                <FormHelperText id="name-helper-text" color="red">
+                  {error.name}
+                </FormHelperText>
               </FormControl>
 
               <FormControl>
@@ -80,6 +109,9 @@ const SignUpPage = () => {
                   placeholder="Email"
                   onChange={(event) => setEmail(event.target.value)}
                 ></Input>
+                <FormHelperText id="email-helper-text" color="red">
+                  {error.email}
+                </FormHelperText>
               </FormControl>
 
               <FormControl>
@@ -90,6 +122,9 @@ const SignUpPage = () => {
                   placeholder="Password"
                   onChange={(event) => setPassword(event.target.value)}
                 ></Input>
+                <FormHelperText id="password-helper-text" color="red">
+                  {error.password}
+                </FormHelperText>
               </FormControl>
             </Stack>
             <Stack pt="5">
