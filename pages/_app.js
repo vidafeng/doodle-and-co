@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import Layout from "../components/Layout";
-import { CartProvider } from "../context/Cart";
+import { CartProvider } from "../context/CartContext";
 
 export default function App({ Component, pageProps }) {
   // layout in app.js instead of index.js to have on all pages

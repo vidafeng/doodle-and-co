@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import Link from "next/link";
 import {
   Box,
   Flex,
@@ -11,6 +12,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import CartIcon from "./CartIcon";
 
 const Layout = ({ children }) => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -31,22 +33,27 @@ const Layout = ({ children }) => {
           borderColor={useColorModeValue("gray.200", "gray.900")}
           align={"center"}
         >
-          <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-            <Text
-              fontFamily={"heading"}
-              color={useColorModeValue("gray.800", "white")}
-            >
-              Logo
-            </Text>
+          <Flex flex={{ base: 1 }} justify={{ base: "start", md: "start" }}>
+            <Link href={"/"} passHref>
+              <Text
+                fontFamily={"heading"}
+                color={useColorModeValue("gray.800", "white")}
+              >
+                Logo
+              </Text>
+            </Link>
             <Stack
               flex={{ base: 1 }}
               justify={"flex-end"}
               direction={"row"}
-              spacing={6}
+              spacing={4}
             >
               <Button onClick={toggleColorMode}>
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
+              <Link href="/cart" passHref>
+                <CartIcon />
+              </Link>
 
               <Button
                 as={"a"}
