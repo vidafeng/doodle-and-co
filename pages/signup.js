@@ -11,51 +11,19 @@ import {
   FormLabel,
   Input,
   useBreakpointValue,
-  FormHelperText,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import * as yup from "yup";
 
-const loginSchema = yup.object().shape({
-  email: yup.string().email("Invalid email").required("Email is required"),
-  password: yup
-    .string()
-    .min(8, "Password must be at least 8 characters")
-    .required("Password is required"),
-});
-
-const LoginPage = () => {
+const SignUpPage = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (e) => {
     // dont want page to reload until we capture email and pw
-    event.preventDefault();
-
-    // validate form
-    try {
-      await loginSchema.validate(
-        {
-          email,
-          password,
-        },
-        {
-          // get all errors at once
-          abortEarly: false,
-        }
-      );
-    } catch (err) {
-      const validationErrors = {};
-      if (err instanceof yup.ValidationError) {
-        err.inner.forEach((error) => {
-          validationErrors[error.path] = error.message;
-        });
-      }
-      setError(validationErrors);
-      return;
-    }
+    e.preventDefault();
 
     //   call login function
     //   clear the state
@@ -71,13 +39,13 @@ const LoginPage = () => {
     >
       <Stack spacing="8">
         <Stack spcing="6" textAlign="center">
-          <Heading>Log In</Heading>
+          <Heading>Create an Account</Heading>
         </Stack>
         <HStack>
-          <Text>Don&apos;t have an account?</Text>
-          <Link href="/signup" passHref>
+          <Text>Already have an account?</Text>
+          <Link href="/login" passHref>
             <Button variant="link" colorScheme={"pink"}>
-              Sign Up
+              Log In
             </Button>
           </Link>
         </HStack>
@@ -95,6 +63,16 @@ const LoginPage = () => {
           <Stack spacing="6">
             <Stack spacing="5">
               <FormControl>
+                <FormLabel htmlFor="name">Name</FormLabel>
+                <Input
+                  id="name"
+                  type="name"
+                  placeholder="Name"
+                  onChange={(event) => setName(event.target.value)}
+                ></Input>
+              </FormControl>
+
+              <FormControl>
                 <FormLabel htmlFor="email">Email Address</FormLabel>
                 <Input
                   id="email"
@@ -102,9 +80,6 @@ const LoginPage = () => {
                   placeholder="Email"
                   onChange={(event) => setEmail(event.target.value)}
                 ></Input>
-                <FormHelperText id="email-helper-text" color="red">
-                  {error.email}
-                </FormHelperText>
               </FormControl>
 
               <FormControl>
@@ -115,19 +90,13 @@ const LoginPage = () => {
                   placeholder="Password"
                   onChange={(event) => setPassword(event.target.value)}
                 ></Input>
-                <FormHelperText id="password-helper-text" color="red">
-                  {error.password}
-                </FormHelperText>
               </FormControl>
             </Stack>
-            <HStack justify="space-between">
-              <Button variant="link" colorScheme="pink" size="sm">
-                Forgot Password
+            <Stack pt="5">
+              <Button colorScheme="pink" type="submit">
+                Sign Up
               </Button>
-            </HStack>
-            <Button colorScheme="pink" type="submit">
-              Sign In
-            </Button>
+            </Stack>
           </Stack>
         </form>
       </Box>
@@ -135,4 +104,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;
