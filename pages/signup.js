@@ -16,7 +16,8 @@ import {
 import Link from "next/link";
 import * as yup from "yup";
 
-const loginSchema = yup.object().shape({
+const signUpSchema = yup.object().shape({
+  name: yup.string().required("Name is required"),
   email: yup.string().email("Invalid email").required("Email is required"),
   password: yup
     .string()
@@ -24,27 +25,21 @@ const loginSchema = yup.object().shape({
     .required("Password is required"),
 });
 
-const LoginPage = () => {
+const SignUpPage = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (e) => {
     // dont want page to reload until we capture email and pw
-    event.preventDefault();
+    e.preventDefault();
 
-    // validate form
     try {
-      await loginSchema.validate(
-        {
-          email,
-          password,
-        },
-        {
-          // get all errors at once
-          abortEarly: false,
-        }
+      await signUpSchema.validate(
+        { name, email, password },
+        { abortEarly: false }
       );
     } catch (err) {
       const validationErrors = {};
@@ -57,7 +52,6 @@ const LoginPage = () => {
       return;
     }
 
-    //   call login function
     //   clear the state
     setEmail("");
     setPassword("");
@@ -71,13 +65,13 @@ const LoginPage = () => {
     >
       <Stack spacing="8">
         <Stack spcing="6" textAlign="center">
-          <Heading>Log In</Heading>
+          <Heading>Create an Account</Heading>
         </Stack>
         <HStack>
-          <Text>Don&apos;t have an account?</Text>
-          <Link href="/signup" passHref>
+          <Text>Already have an account?</Text>
+          <Link href="/login" passHref>
             <Button variant="link" colorScheme={"pink"}>
-              Sign Up
+              Log In
             </Button>
           </Link>
         </HStack>
@@ -94,6 +88,19 @@ const LoginPage = () => {
         <form onSubmit={handleSubmit}>
           <Stack spacing="6">
             <Stack spacing="5">
+              <FormControl>
+                <FormLabel htmlFor="name">Name</FormLabel>
+                <Input
+                  id="name"
+                  type="name"
+                  placeholder="Name"
+                  onChange={(event) => setName(event.target.value)}
+                ></Input>
+                <FormHelperText id="name-helper-text" color="red">
+                  {error.name}
+                </FormHelperText>
+              </FormControl>
+
               <FormControl>
                 <FormLabel htmlFor="email">Email Address</FormLabel>
                 <Input
@@ -120,14 +127,11 @@ const LoginPage = () => {
                 </FormHelperText>
               </FormControl>
             </Stack>
-            <HStack justify="space-between">
-              <Button variant="link" colorScheme="pink" size="sm">
-                Forgot Password
+            <Stack pt="5">
+              <Button colorScheme="pink" type="submit">
+                Sign Up
               </Button>
-            </HStack>
-            <Button colorScheme="pink" type="submit">
-              Sign In
-            </Button>
+            </Stack>
           </Stack>
         </form>
       </Box>
@@ -135,4 +139,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;
