@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import * as yup from "yup";
+import { signIn } from "next-auth/react";
 
 const signUpSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -51,6 +52,41 @@ const SignUpPage = () => {
       setError(validationErrors);
       return;
     }
+
+    // if user creation was successful
+    // call sign in method from nextAuth to create session for user
+    fetch("/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password,
+      }),
+    })
+      .then((response) => {
+        if (response.status === 201) {
+          console.log("user created successfully");
+          signIn("credentials", {
+            email: email,
+            password: password,
+            callbackUrl: "/",
+            redirect: true,
+          })
+            .then((result) => {
+              console.log(result);
+            })
+            .catch((error) => {
+              setError({ api: error.toString() });
+            });
+        } else {
+          console.log("user creation failed");
+          setError({ api: "Could not create an account. Please try again" });
+        }
+      })
+      .catch((error) => console.log("Sign Up API Error", error));
 
     //   clear the state
     setEmail("");
@@ -91,6 +127,7 @@ const SignUpPage = () => {
               <FormControl>
                 <FormLabel htmlFor="name">Name</FormLabel>
                 <Input
+                  value={name}
                   id="name"
                   type="name"
                   placeholder="Name"
@@ -104,6 +141,7 @@ const SignUpPage = () => {
               <FormControl>
                 <FormLabel htmlFor="email">Email Address</FormLabel>
                 <Input
+                  value={email}
                   id="email"
                   type="email"
                   placeholder="Email"
@@ -117,6 +155,7 @@ const SignUpPage = () => {
               <FormControl>
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <Input
+                  value={password}
                   id="password"
                   type="password"
                   placeholder="Password"

@@ -4,6 +4,7 @@ import User from "../../../models/User";
 
 async function handler(req, res) {
   // method should be 'POST' -- secure
+  // test using postman
   if (req.method !== "POST") {
     return;
   }

@@ -1,6 +1,6 @@
 import { createRouter } from "next-connect";
-import db from "../../utils/db";
-import User from "../../models/User";
+import db from "../../../utils/db";
+import User from "../../../models/User";
 import bcrypt from "bcryptjs";
 import { signToken } from "../../../utils/auth";
 
@@ -8,7 +8,7 @@ import { signToken } from "../../../utils/auth";
 // You may want to pass in NextApiRequest and NextApiResponse
 const router = createRouter();
 
-router.get(async (req, res) => {
+router.post(async (req, res) => {
   await db.connect();
   //   look for user
   const user = await User.findOne({ email: req.body.email });
