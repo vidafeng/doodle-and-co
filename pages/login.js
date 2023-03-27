@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import * as yup from "yup";
+import { signIn } from "next-auth/react";
 
 const loginSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -49,8 +50,8 @@ const LoginPage = () => {
     } catch (err) {
       const validationErrors = {};
       if (err instanceof yup.ValidationError) {
-        err.inner.forEach((error) => {
-          validationErrors[error.path] = error.message;
+        err.inner.forEach(({ path, message }) => {
+          validationErrors[path] = message;
         });
       }
       setError(validationErrors);
@@ -59,6 +60,18 @@ const LoginPage = () => {
 
     //   call login function
     //   clear the state
+
+    const result = await signIn("credentials", {
+      email: email,
+      password: password,
+      callbackUrl: "/",
+      redirect: true,
+    });
+
+    if (result.error) {
+      setError(result.error);
+    }
+
     setEmail("");
     setPassword("");
   };
@@ -97,6 +110,7 @@ const LoginPage = () => {
               <FormControl>
                 <FormLabel htmlFor="email">Email Address</FormLabel>
                 <Input
+                  value={email}
                   id="email"
                   type="email"
                   placeholder="Email"
@@ -110,6 +124,7 @@ const LoginPage = () => {
               <FormControl>
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <Input
+                  value={password}
                   id="password"
                   type="password"
                   placeholder="Password"

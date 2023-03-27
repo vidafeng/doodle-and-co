@@ -2,16 +2,28 @@ import "../styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import Layout from "../components/Layout";
 import { CartProvider } from "../context/CartContext";
+import { SessionProvider } from "next-auth/react";
+import { Provider } from "react-redux";
+import { wrapper } from "../redux/store";
 
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   // layout in app.js instead of index.js to have on all pages
+  const { store, props } = wrapper.useWrappedStore(pageProps);
+
   return (
     <ChakraProvider>
-      <CartProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </CartProvider>
+      <SessionProvider session={session}>
+        <CartProvider>
+          <Provider store={store}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </Provider>
+        </CartProvider>
+      </SessionProvider>
     </ChakraProvider>
   );
 }
