@@ -7,6 +7,8 @@ import {
   CardHeader,
   CardFooter,
   Heading,
+  Stack,
+  Box,
   CardBody,
 } from "@chakra-ui/react";
 
@@ -22,13 +24,15 @@ const CheckoutPage = () => {
   ];
 
   return (
-    <div>
+    <Stack spacing={4}>
       <Progress value={activeStep} max={steps.length} />
-      <Card>
-        <CardHeader>{steps[activeStep].name}</CardHeader>
-        <CardBody>{steps[activeStep].component}</CardBody>
-      </Card>
-    </div>
+      <Box mx="auto">
+        <Card w="xl" m="auto">
+          <CardHeader>{steps[activeStep].name}</CardHeader>
+          <CardBody>{steps[activeStep].component}</CardBody>
+        </Card>
+      </Box>
+    </Stack>
   );
 };
 
