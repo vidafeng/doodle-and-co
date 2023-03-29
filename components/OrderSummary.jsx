@@ -11,7 +11,7 @@ const OrderSummary = ({total}) => {
             <Heading size='sm'>{`$ ${total}`}</Heading>
         </Flex>
     </Stack>
-    <Button siz='lg' fontSize='md' bg='gray.900' color='white' _dark={{ bg: "gray.50", color: "gray.900" }}
+    <Button size='lg' fontSize='md' bg='gray.900' color='white' _dark={{ bg: "gray.50", color: "gray.900" }}
 >Checkout</Button>
 </Stack>
   )
