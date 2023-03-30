@@ -1,18 +1,19 @@
 import React, {useContext} from 'react';
 import { Heading, Box, Stack, StackDivider, Text, Flex, Button } from '@chakra-ui/react';
-import {CartContext} from '../../context/CartContext'
+import {CartContext} from '../context/CartContext'
 import { useSelector } from 'react-redux';
 
-export const OrderReview = () => {
+const OrderReview = () => {
     // get cart context
     // get checkout details
 
     const {cart} = useContext(CartContext)
     const state = useSelector((state) => state)
 
+    // subtotal needs to go first, following variables needs access
+    const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0)
     const shippingPrice = subtotal > 50 ? 0 : 7.99
     const tax = subtotal * 0.08875
-    const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0)
     const total = subtotal + tax + shippingPrice
 
     return (
@@ -53,3 +54,5 @@ export const OrderReview = () => {
     </Stack>
     )
 }
+
+export default OrderReview
