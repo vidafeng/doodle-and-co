@@ -55,9 +55,10 @@ const ShippingAddressForm = () => {
       return;
     }
 
-    dispatchEvent({ type: address / saveShippingAddress, payload: formValues });
+    dispatch({ type: "address/saveShippingAddress", payload: formValues });
 
     // redirect to next form
+    dispatch({ type: "checkout/nextStep" });
   };
   return (
     <form onSubmit={handleSubmit}>

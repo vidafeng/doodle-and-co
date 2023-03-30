@@ -11,6 +11,8 @@ import {
   Box,
   CardBody,
 } from "@chakra-ui/react";
+import PaymentMethod from "../components/Payment";
+import OrderReview from "../components/OrderReview";
 
 const CheckoutPage = () => {
   const dispatch = useDispatch();
@@ -19,8 +21,11 @@ const CheckoutPage = () => {
 
   const steps = [
     { name: "Shipping", component: <ShippingAddressForm /> },
-    { name: "Payment", component: <div>Payment</div> },
-    { name: "Review", component: <div>Review</div> },
+    {
+      name: "Payment",
+      component: <PaymentMethod />,
+    },
+    { name: "Review", component: <OrderReview /> },
   ];
 
   return (

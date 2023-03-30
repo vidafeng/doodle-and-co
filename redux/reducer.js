@@ -9,6 +9,7 @@ const initialState = {
     postalCode: "",
     country: "",
   },
+  paymentMethod: "",
 };
 
 export const reducer = (state = initialState, action) => {
@@ -24,6 +25,9 @@ export const reducer = (state = initialState, action) => {
 
     case "checkout/prevStep":
       return { ...state, currentStep: state.currentStep - 1 };
+
+    case "checkout/paymentMethod":
+      return { ...state, paymentMethod: action.payload };
 
     default:
       return state;
