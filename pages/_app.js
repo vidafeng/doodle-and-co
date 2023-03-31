@@ -5,6 +5,7 @@ import { CartProvider } from "../context/CartContext";
 import { SessionProvider } from "next-auth/react";
 import { Provider } from "react-redux";
 import { wrapper } from "../redux/store";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 export default function App({
   Component,
@@ -16,13 +17,15 @@ export default function App({
   return (
     <ChakraProvider>
       <SessionProvider session={session}>
-        <CartProvider>
-          <Provider store={store}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </Provider>
-        </CartProvider>
+        <PayPalScriptProvider deferLoading={true}>
+          <CartProvider>
+            <Provider store={store}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </Provider>
+          </CartProvider>
+        </PayPalScriptProvider>
       </SessionProvider>
     </ChakraProvider>
   );
