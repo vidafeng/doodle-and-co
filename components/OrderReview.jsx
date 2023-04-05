@@ -143,11 +143,15 @@ const OrderReview = () => {
 
         <Flex justify='center' align='center' pt='4'>
           {displayPaypalButton ? (
-            <PayPalButtons
-              createOrder={createOrder}
-              onApprove={onApprove}
-              onError={onError}
-            />
+            isPending ? (
+              <CircularProgress isIndeterminate color='blue.300' />
+            ) : (
+              <PayPalButtons
+                createOrder={createOrder}
+                onApprove={onApprove}
+                onError={onError}
+              />
+            )
           ) : (
             <Button onClick={handlePlaceOrder} colorScheme='yellow' size='sm'>
               Place Order
