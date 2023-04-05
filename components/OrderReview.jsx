@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Heading,
   Box,
@@ -13,7 +13,7 @@ import {
 import { CartContext } from "../context/CartContext";
 import { useSelector } from "react-redux";
 import {
-  usePaypalScriptReducer,
+  usePayPalScriptReducer,
   PayPalScriptProvider,
   PayPalButtons,
 } from "@paypal/react-paypal-js";
@@ -33,9 +33,21 @@ const OrderReview = () => {
   const total = subtotal + tax + shippingPrice;
 
   const [displayPaypalButton, setDisplayPaypalButton] = useState(false);
-  const [{ isPending }, paypalDispatch] = usePaypalScriptReducer;
+  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
   const [isPaid, setIsPaid] = useState(false);
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (displayPaypalButton) {
+      paypalDispatch({
+        type: "resetOptions",
+        value: {
+          "client-id": "test",
+          currency: "USD",
+        },
+      });
+    }
+  }, [displayPaypalButton]);
 
   const handlePlaceOrder = () => {
     // TODO: save order details to database
@@ -72,17 +84,17 @@ const OrderReview = () => {
         isClosable: true,
       });
     });
+  };
 
-    const onError = (error) => {
-      setError(true);
-      toast({
-        title: "Oops, something went wrong!",
-        description: { error },
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-      });
-    };
+  const onError = (error) => {
+    setError(true);
+    toast({
+      title: "Oops, something went wrong!",
+      description: { error },
+      status: "error",
+      duration: 9000,
+      isClosable: true,
+    });
   };
 
   return (
