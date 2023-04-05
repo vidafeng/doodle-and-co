@@ -60,7 +60,7 @@ const OrderReview = () => {
         purchase_units: [
           {
             amount: {
-              value: { total },
+              value: total,
             },
           },
         ],
