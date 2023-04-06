@@ -39,13 +39,25 @@ const OrderReview = () => {
 
   useEffect(() => {
     if (displayPaypalButton) {
-      paypalDispatch({
-        type: "resetOptions",
-        value: {
-          "client-id": "test",
-          currency: "USD",
-        },
-      });
+      // async bc making api call
+      const loadPaymentScript = async () => {
+        const response = await fetch("/api/keys/paypal", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const { clientId } = await response.json();
+        paypalDispatch({
+          type: "resetOptions",
+          value: {
+            "client-id": clientId,
+            currency: "USD",
+          },
+        });
+      };
+      loadPaymentScript();
     }
   }, [displayPaypalButton]);
 
