@@ -8,14 +8,18 @@ const router = createRouter();
 router.post(async (req, res) => {
   try {
     await db.connect();
-    const newOrder = new Order({
-      ...req.body,
-      user: req.body.user_id,
-    });
+    const order = await Order.findById(req.query.id);
+    if (order) {
+      order.isPaid = true;
+      order.paymentId = req.body.payment_id;
+      order.paymentEmail = req.body.email_address;
+      order.paymentStatus = req.body.status;
+    }
 
-    const order = await newOrder.save();
+    const completedOrder = await order.save();
     await db.disconnect();
-    res.send({ message: "order saved", data: order });
+    res.statusCode(201).send(order);
+    
   } catch (error) {
     res.send({ message: error });
   }

@@ -17,6 +17,7 @@ import {
   PayPalScriptProvider,
   PayPalButtons,
 } from "@paypal/react-paypal-js";
+import { useSession } from "next-auth/react";
 
 const OrderReview = () => {
   // get cart context
@@ -25,6 +26,8 @@ const OrderReview = () => {
   const { cart } = useContext(CartContext);
   const state = useSelector((state) => state);
   const toast = useToast();
+
+  const { data: session } = useSession();
 
   // subtotal needs to go first, following variables needs access
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
@@ -36,6 +39,8 @@ const OrderReview = () => {
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
   const [isPaid, setIsPaid] = useState(false);
   const [error, setError] = useState(false);
+  const [orderLoading, setOrderLoading] = useState(false);
+  const [orderIdDB, setOrderIdDB] = useState(null);
 
   useEffect(() => {
     if (displayPaypalButton) {
@@ -61,9 +66,53 @@ const OrderReview = () => {
     }
   }, [displayPaypalButton]);
 
-  const handlePlaceOrder = () => {
-    // TODO: save order details to database
-    setDisplayPaypalButton(true);
+  const handlePlaceOrder = async () => {
+    setOrderLoading(true);
+    // save order details to database
+
+    const user_id = session.user._id;
+    const orderItems = cart.map((cartItem) => {
+      return {
+        name: cartItem.name,
+        description: cartItem.description,
+        image: cartItem.image,
+        quantity: cartItem.qty ? cartItem.qty : 1,
+      };
+    });
+    const shippingAddress = state.shippingAddress;
+    const isPaid = false;
+    const isDelivered = false;
+    const paymentMethod = "paypal";
+
+    const reqBody = {
+      user_id,
+      orderItems,
+      shippingAddress,
+      isPaid,
+      isDelivered,
+      paymentMethod,
+      subtotal,
+      shippingPrice,
+      tax,
+      total,
+    };
+    fetch("/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "/application/json",
+      },
+      body: JSON.stringify(reqBody),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setOrderIdDB(data._id);
+        console.log(data);
+        setDisplayPaypalButton(true);
+      })
+      .catch((err) => {
+        setError(true);
+      });
+    setOrderLoading(false);
   };
 
   const createOrder = (data, actions) => {
@@ -87,6 +136,10 @@ const OrderReview = () => {
     return actions.order.capture().then((details) => {
       // TODO: update order status in db
       console.log(details);
+
+      const { id: payment_id, status } = details;
+      const userEmail = details.payer.email_address;
+
       setIsPaid(true);
       toast({
         title: "Payment Successful!",
@@ -177,7 +230,12 @@ const OrderReview = () => {
               />
             )
           ) : (
-            <Button onClick={handlePlaceOrder} colorScheme='yellow' size='sm'>
+            <Button
+              onClick={handlePlaceOrder}
+              colorScheme='yellow'
+              loading={orderLoading}
+              size='sm'
+            >
               Place Order
             </Button>
           )}
