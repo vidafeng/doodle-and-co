@@ -18,12 +18,15 @@ import {
   PayPalButtons,
 } from "@paypal/react-paypal-js";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const OrderReview = () => {
   // get cart context
   // get checkout details
 
-  const { cart } = useContext(CartContext);
+  const router = useRouter();
+
+  const { cart, clearCart } = useContext(CartContext);
   const state = useSelector((state) => state);
   const toast = useToast();
 
@@ -106,7 +109,6 @@ const OrderReview = () => {
       .then((res) => res.json())
       .then((data) => {
         setOrderIdDB(data._id);
-        console.log(data);
         setDisplayPaypalButton(true);
       })
       .catch((err) => {
@@ -133,13 +135,7 @@ const OrderReview = () => {
 
   // use authorizes payment
   const onApprove = (data, actions) => {
-    return actions.order.capture().then((details) => {
-      // TODO: update order status in db
-      console.log(details);
-
-      const { id: payment_id, status } = details;
-      const userEmail = details.payer.email_address;
-
+    return actions.order.capture().then(async (details) => {
       setIsPaid(true);
       toast({
         title: "Payment Successful!",
@@ -148,6 +144,27 @@ const OrderReview = () => {
         duration: 9000,
         isClosable: true,
       });
+
+      // update order status in db
+      const { id: payment_id, status } = details;
+      const email_address = details.payer.email_address;
+
+      try {
+        const response = await fetch("/api/payment/details", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ payment_id, status, email_address }),
+        });
+        const data = response.json();
+        // clear the cart
+        clearCart();
+        // redirect to confirmation page
+        router.push("/order/${orderIdDB}");
+      } catch (err) {
+        setError(true);
+      }
     });
   };
 
