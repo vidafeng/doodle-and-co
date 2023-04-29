@@ -26,7 +26,7 @@ const Products = ({ data }) => {
                 />
                 <Box py={1} px={2}>
                   <h3>{product.name}</h3>
-                  <div>${product.price}</div>
+                  <div>${product.price.toFixed(2)}</div>
                 </Box>
               </Link>
             </Card>

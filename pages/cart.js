@@ -30,7 +30,7 @@ const CartPage = () => {
         >
           <Stack flex='2' spacing={{ base: "6", lg: "10" }}>
             <Heading as='h1' size='2xl'>
-              Shopping Cart ({cart.length})
+              Shopping Cart
             </Heading>
             <Stack spacing={"6"}>
               {cart?.length > 0 &&

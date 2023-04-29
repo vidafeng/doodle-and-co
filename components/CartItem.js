@@ -45,7 +45,7 @@ const CartItem = ({ item }) => {
           color='gray.800'
           _dark={{ color: "gray.200" }}
         >
-          ${item.price}
+          ${item.price.toFixed(2)}
         </Text>
         <Text
           fontWeight='medium'

@@ -30,9 +30,9 @@ const CheckoutPage = () => {
 
   return (
     <Stack spacing={4}>
-      <Progress value={activeStep} max={steps.length} />
-      <Box mx="auto">
-        <Card w="xl" m="auto">
+      <Progress hasStripe value={activeStep} max={steps.length} />
+      <Box mx='auto'>
+        <Card w='xl' m='auto'>
           <CardHeader>{steps[activeStep].name}</CardHeader>
           <CardBody>{steps[activeStep].component}</CardBody>
         </Card>
