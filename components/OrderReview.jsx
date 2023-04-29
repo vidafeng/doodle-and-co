@@ -33,9 +33,11 @@ const OrderReview = () => {
   const { data: session } = useSession();
 
   // subtotal needs to go first, following variables needs access
-  const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
-  const shippingPrice = subtotal > 50 ? 0 : 7.99;
-  const tax = subtotal * 0.08875;
+  const subtotal = Number(
+    cart.reduce((acc, item) => acc + item.price * item.qty, 0)
+  );
+  const shippingPrice = Number(subtotal > 50 ? 0 : 7.99);
+  const tax = Number((subtotal * 0.08875).toFixed(2));
   const total = subtotal + tax + shippingPrice;
 
   const [displayPaypalButton, setDisplayPaypalButton] = useState(false);
@@ -180,7 +182,7 @@ const OrderReview = () => {
   };
 
   return (
-    <Stack divier={<StackDivider />} spacing='4'>
+    <Stack divider={<StackDivider />} spacing='4'>
       <Box>
         <Heading size='xs' textTransform='uppercase'>
           Shipping Address
@@ -250,7 +252,7 @@ const OrderReview = () => {
             <Button
               onClick={handlePlaceOrder}
               colorScheme='yellow'
-              loading={orderLoading}
+              loading={orderLoading.toString()}
               size='sm'
             >
               Place Order

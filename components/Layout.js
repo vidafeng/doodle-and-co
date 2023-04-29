@@ -53,7 +53,7 @@ const Layout = ({ children }) => {
               <Button onClick={toggleColorMode}>
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
-              <Link href="/cart" passHref>
+              <Link href='/cart' passHref>
                 <CartIcon />
               </Link>
 
@@ -84,6 +84,7 @@ const Layout = ({ children }) => {
                     </Button>
 
                     <Button
+                      as={"a"}
                       display={{ base: "none", md: "inline-flex" }}
                       fontSize={"sm"}
                       fontWeight={600}
