@@ -10,6 +10,7 @@ const PaymentMethod = () => {
     store.paymentMethod ? store.paymentMethod : ""
   );
 
+  // payment that will set in react-redux store
   const handlePaymentMethodChange = (value) => {
     // set local state of component
     // pass value that was passed into setPaymentMethod func to redux

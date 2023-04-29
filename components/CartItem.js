@@ -7,31 +7,32 @@ const CartItem = ({ item }) => {
   return (
     <Flex
       direction={{ base: "column", md: "row" }}
-      justify="space-between"
-      align="center"
+      justify='space-between'
+      align='center'
     >
-      <Stack direction={"row"} spacing="5" width="full">
+      <Stack direction={"row"} spacing='5' width='full'>
         <Image
           src={`/images${item.image}`}
           alt={item.name}
-          width="120px"
-          height="120px"
-          loading="lazy"
+          width='120px'
+          height='120px'
+          loading='lazy'
         />
-        <Box pt="4">
-          <Stack spacing="0.5">
-            <Text fontWeight="medium">{item.name}</Text>
-            <Text fontSize="sm" color="gray.600" _dark={{ color: "gray.400" }}>
+        <Box pt='4'>
+          <Stack spacing='0.5'>
+            <Text fontWeight='medium'>{item.name}</Text>
+            <Text fontSize='sm' color='gray.600' _dark={{ color: "gray.400" }}>
               {item.description}
             </Text>
           </Stack>
+          {/* TO DO: show quanttiy */}
         </Box>
       </Stack>
-      <Flex width="full" justify="space-between" display="flex">
+      <Flex width='full' justify='space-between' display='flex'>
         <Text
-          fontWeight="medium"
-          fontSize="lg"
-          color="gray.800"
+          fontWeight='medium'
+          fontSize='lg'
+          color='gray.800'
           _dark={{ color: "gray.200" }}
         >
           ${item.price}

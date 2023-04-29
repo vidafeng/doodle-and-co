@@ -65,14 +65,12 @@ const CartProvider = ({ children }) => {
   const addToCart = (item) => {
     dispatch({ type: "ADD_ITEM", payload: item });
   };
-
   const updateQty = (itemId, qty) => {
     dispatch({ type: "UPDATE_QTY", payload: { id: itemId, qty } });
   };
   const removeFromCart = (itemId) => {
     dispatch({ type: "REMOVE_ITEM", payload: itemId });
   };
-
   const clearCart = () => {
     dispatch({ type: "CLEAR_CART" });
   };
