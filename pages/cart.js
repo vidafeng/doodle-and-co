@@ -7,7 +7,7 @@ import OrderSummary from "../components/OrderSummary";
 const CartPage = () => {
   const { cart } = useContext(CartContext);
   const calculateSum = (cartItems) => {
-    return cartItems.reduce((acc, item) => acc + item.price, 0);
+    return cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
   };
 
   return (
@@ -30,7 +30,7 @@ const CartPage = () => {
         >
           <Stack flex='2' spacing={{ base: "6", lg: "10" }}>
             <Heading as='h1' size='2xl'>
-              Shopping Cart
+              Shopping Cart ({cart.length})
             </Heading>
             <Stack spacing={"6"}>
               {cart?.length > 0 &&
