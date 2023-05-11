@@ -55,16 +55,16 @@ const ProductPage = (props) => {
               {product.name}
             </Heading>
             <Text
-              color="gray.900"
+              color='gray.900'
               _dark={{ color: "gray.400" }}
               fontWeight={300}
               fontSize={"2xl"}
             >
-              $ {product.price}
+              $ {product.price.toFixed(2)}
             </Text>
           </Box>
           <Text
-            color="gray.500"
+            color='gray.500'
             _dark={{ color: "gray.400" }}
             fontWeight={300}
             fontSize={"lg"}
@@ -78,10 +78,10 @@ const ProductPage = (props) => {
               mt={8}
               py={6}
               size={"lg"}
-              bg="gray.800"
+              bg='gray.800'
               _dark={{ bg: "gray.50", color: "gray.700" }}
-              color="white"
-              textTransform="uppercase"
+              color='white'
+              textTransform='uppercase'
               onClick={() => addToCart(product)}
             >
               Add to Cart

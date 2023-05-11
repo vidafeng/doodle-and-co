@@ -7,7 +7,7 @@ import OrderSummary from "../components/OrderSummary";
 const CartPage = () => {
   const { cart } = useContext(CartContext);
   const calculateSum = (cartItems) => {
-    return cartItems.reduce((acc, item) => acc + item.price, 0);
+    return cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
   };
 
   return (

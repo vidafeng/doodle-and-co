@@ -10,7 +10,7 @@ const OrderSummary = ({ total }) => {
       <Stack spacing='6'>
         <Flex justifyContent='space-between'>
           <Heading size='sm'>{`Subtotal `}</Heading>
-          <Heading size='sm'>{`$ ${total}`}</Heading>
+          <Heading size='sm'>{`$ ${total.toFixed(2)}`}</Heading>
         </Flex>
       </Stack>
       <Button

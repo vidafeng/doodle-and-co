@@ -11,27 +11,27 @@ function CartIcon() {
   const fontColor = { light: "gray.800", dark: "gray.100" };
 
   return (
-    <Box position="relative">
+    <Box position='relative'>
       <IconButton
-        aria-label="cart"
-        icon={<Text fontSize="2xl">🛒</Text>}
+        aria-label='cart'
+        icon={<Text fontSize='2xl'>🛒</Text>}
         // transparent
-        variant="ghost"
+        variant='ghost'
         color={iconColor[colorMode]}
         _hover={{ color: hoverColor[colorMode] }}
       />
 
       {cart.length > 0 && (
         <Box
-          position="absolute"
+          position='absolute'
           top={0}
           right={0}
           bg={hoverColor[colorMode]}
           color={fontColor[colorMode]}
-          rounded="sm"
+          rounded='sm'
           p={1}
         >
-          <Text fontWeight="bold">{cart.length}</Text>
+          <Text fontWeight='bold'>{cart.length}</Text>
         </Box>
       )}
     </Box>

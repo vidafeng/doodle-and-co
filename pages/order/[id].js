@@ -8,7 +8,7 @@ const OrderConfirmationPage = () => {
 
   return (
     <div>
-      <Progress value={3} max={3} />
+      <Progress hasStripe value={3} max={3} />
       <Card>
         <CardHeader>Thank you for your order!</CardHeader>
         <CardBody>
