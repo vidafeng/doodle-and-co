@@ -25,7 +25,7 @@ const orderSchema = new mongoose.Schema(
     total: { type: Number, required: true },
     isPaid: { type: Boolean, required: true },
     isDelivered: { type: Boolean, required: true },
-    paymenyId: { type: String, required: false },
+    paymentId: { type: String, required: false },
     paymentEmail: { type: String, required: false },
     paymentStatus: { type: String, required: false },
   },

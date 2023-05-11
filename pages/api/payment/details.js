@@ -18,8 +18,9 @@ router.post(async (req, res) => {
 
     const completedOrder = await order.save();
     await db.disconnect();
-    res.statusCode(201).send(order);
-    
+    res
+      .statusCode(201)
+      .send({ message: "Order completed", order: completedOrder });
   } catch (error) {
     res.send({ message: error });
   }

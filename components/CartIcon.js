@@ -26,7 +26,7 @@ function CartIcon() {
           position='absolute'
           top={0}
           right={0}
-          bg={hoverColor[colorMode]}
+          // bg={hoverColor[colorMode]}
           color={fontColor[colorMode]}
           rounded='sm'
           p={1}

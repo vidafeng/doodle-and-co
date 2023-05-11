@@ -1,5 +1,3 @@
-// pages/api/hello.js
-
 import { createRouter } from "next-connect";
 import db from "../../utils/db";
 import { data } from "../../utils/data";

@@ -9,9 +9,9 @@ const router = createRouter();
 router.get(async (req, res) => {
   await db.connect();
 
-  //   create product
-  // find product
+  // passing empty object - find all product
   const products = await Product.find({});
+  // console.log(products);
   await db.disconnect(products);
   res.send(products);
 });

@@ -74,7 +74,6 @@ const OrderReview = () => {
   const handlePlaceOrder = async () => {
     setOrderLoading(true);
     // save order details to database
-
     const user_id = session.user._id;
     const orderItems = cart.map((cartItem) => {
       return {
@@ -101,6 +100,7 @@ const OrderReview = () => {
       tax,
       total,
     };
+
     fetch("/api/orders", {
       method: "POST",
       headers: {
@@ -110,6 +110,7 @@ const OrderReview = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log("data order review:", data);
         setOrderIdDB(data._id);
         setDisplayPaypalButton(true);
       })
@@ -163,7 +164,7 @@ const OrderReview = () => {
         // clear the cart
         clearCart();
         // redirect to confirmation page
-        router.push("/order/${orderIdDB}");
+        router.push(`/order/${orderIdDB}`);
       } catch (err) {
         setError(true);
       }
