@@ -2,13 +2,17 @@ import React, { useContext } from "react";
 import { useColorMode, IconButton, Box, Text } from "@chakra-ui/react";
 import { CartContext } from "../context/CartContext";
 
-function CartIcon() {
+function CartIcon({ item }) {
   const { cart } = useContext(CartContext);
   const { colorMode } = useColorMode();
 
   const hoverColor = { light: "gray.800", dark: "gray.100" };
   const iconColor = { light: "gray.600", dark: "gray.300" };
   const fontColor = { light: "gray.800", dark: "gray.100" };
+
+  const calculateQty = (cartItems) => {
+    return cartItems.reduce((acc, item) => acc + item.qty, 0);
+  };
 
   return (
     <Box position='relative'>
@@ -31,7 +35,7 @@ function CartIcon() {
           rounded='sm'
           p={1}
         >
-          <Text fontWeight='bold'>{cart.length}</Text>
+          <Text fontWeight='bold'>{calculateQty(cart)}</Text>
         </Box>
       )}
     </Box>
