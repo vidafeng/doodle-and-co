@@ -86,7 +86,7 @@ const SignUpPage = () => {
           setError({ api: "Could not create an account. Please try again" });
         }
       })
-      .catch((error) => console.log("Sign Up API Error", error));
+      .catch((error) => console.log("Sign Up API Error:", error));
 
     //   clear the state
     setEmail("");
@@ -95,18 +95,18 @@ const SignUpPage = () => {
 
   return (
     <Container
-      maxW="lg"
+      maxW='lg'
       py={{ base: "12", md: "24" }}
       px={{ base: "0", sm: "8" }}
     >
-      <Stack spacing="8">
-        <Stack spcing="6" textAlign="center">
+      <Stack spacing='8'>
+        <Stack spcing='6' textAlign='center'>
           <Heading>Create an Account</Heading>
         </Stack>
         <HStack>
           <Text>Already have an account?</Text>
-          <Link href="/login" passHref>
-            <Button variant="link" colorScheme={"pink"}>
+          <Link href='/login' passHref>
+            <Button variant='link' colorScheme={"pink"}>
               Log In
             </Button>
           </Link>
@@ -116,58 +116,58 @@ const SignUpPage = () => {
         py={{ base: "0", sm: "8" }}
         px={{ base: "4", sm: "10" }}
         bg={useBreakpointValue({ base: "transparent", sm: "bg-surface" })}
-        boxShadow="md"
-        p="6"
-        rounded="md"
+        boxShadow='md'
+        p='6'
+        rounded='md'
         borderRadius={{ base: "none", sm: "xl" }}
       >
         <form onSubmit={handleSubmit}>
-          <Stack spacing="6">
-            <Stack spacing="5">
+          <Stack spacing='6'>
+            <Stack spacing='5'>
               <FormControl>
-                <FormLabel htmlFor="name">Name</FormLabel>
+                <FormLabel htmlFor='name'>Name</FormLabel>
                 <Input
                   value={name}
-                  id="name"
-                  type="name"
-                  placeholder="Name"
+                  id='name'
+                  type='name'
+                  placeholder='Name'
                   onChange={(event) => setName(event.target.value)}
                 ></Input>
-                <FormHelperText id="name-helper-text" color="red">
+                <FormHelperText id='name-helper-text' color='red'>
                   {error.name}
                 </FormHelperText>
               </FormControl>
 
               <FormControl>
-                <FormLabel htmlFor="email">Email Address</FormLabel>
+                <FormLabel htmlFor='email'>Email Address</FormLabel>
                 <Input
                   value={email}
-                  id="email"
-                  type="email"
-                  placeholder="Email"
+                  id='email'
+                  type='email'
+                  placeholder='Email'
                   onChange={(event) => setEmail(event.target.value)}
                 ></Input>
-                <FormHelperText id="email-helper-text" color="red">
+                <FormHelperText id='email-helper-text' color='red'>
                   {error.email}
                 </FormHelperText>
               </FormControl>
 
               <FormControl>
-                <FormLabel htmlFor="password">Password</FormLabel>
+                <FormLabel htmlFor='password'>Password</FormLabel>
                 <Input
                   value={password}
-                  id="password"
-                  type="password"
-                  placeholder="Password"
+                  id='password'
+                  type='password'
+                  placeholder='Password'
                   onChange={(event) => setPassword(event.target.value)}
                 ></Input>
-                <FormHelperText id="password-helper-text" color="red">
+                <FormHelperText id='password-helper-text' color='red'>
                   {error.password}
                 </FormHelperText>
               </FormControl>
             </Stack>
-            <Stack pt="5">
-              <Button colorScheme="pink" type="submit">
+            <Stack pt='5'>
+              <Button colorScheme='pink' type='submit'>
                 Sign Up
               </Button>
             </Stack>

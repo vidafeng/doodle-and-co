@@ -13,6 +13,7 @@ router.get(async (req, res) => {
   await Product.deleteMany();
   await Product.insertMany(data.products);
 
+
   await db.disconnect();
 
   res.send({ message: "Data seeded successfully" });

@@ -1,6 +1,6 @@
+import User from "../../../models/User";
 import db from "../../../utils/db";
 import { hashPassword } from "../../../utils/auth";
-import User from "../../../models/User";
 
 async function handler(req, res) {
   // method should be 'POST' -- secure
