@@ -14,6 +14,8 @@ import {
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import CartIcon from "./CartIcon";
 import { useSession, signOut } from "next-auth/react";
+import Image from "next/image";
+import DoodleLogo from "../public/images/doodlelogo.png";
 
 const Layout = ({ children }) => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -41,7 +43,7 @@ const Layout = ({ children }) => {
                 fontFamily={"heading"}
                 color={useColorModeValue("gray.800", "white")}
               >
-                Logo
+                <Image alt='logo' width={150} height={200} src={DoodleLogo} />
               </Text>
             </Link>
             <Stack
