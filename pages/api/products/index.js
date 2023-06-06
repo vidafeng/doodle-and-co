@@ -12,8 +12,14 @@ router.get(async (req, res) => {
   // passing empty object - find all product
   const products = await Product.find({});
   // console.log("inside api prod", products);
-  await db.disconnect(products);
-  res.send(products);
+  db.disconnect(products);
+  // res.send(products);
+
+  if (products) {
+    res.send(products);
+  } else {
+    res.status(404).send({ message: "Products not found" });
+  }
 });
 
 // create a handler from router with custom
