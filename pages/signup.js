@@ -158,7 +158,7 @@ const SignUpPage = () => {
                   value={password}
                   id='password'
                   type='password'
-                  placeholder='Password'
+                  placeholder='Password must be 8 characters'
                   onChange={(event) => setPassword(event.target.value)}
                 ></Input>
                 <FormHelperText id='password-helper-text' color='red'>

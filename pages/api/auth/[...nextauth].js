@@ -12,13 +12,16 @@ export default NextAuth({
       credentials: {},
 
       async authorize(credentials) {
-        const authResponse = await fetch("/api/users/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(credentials),
-        });
+        const authResponse = await fetch(
+          "http://localhost:3000/api/users/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(credentials),
+          }
+        );
 
         if (!authResponse.ok) {
           return null;
@@ -44,5 +47,5 @@ export default NextAuth({
       return session;
     },
   },
-  debug: process.env.NODE_ENV == "development",
+  debug: process.env.NODE_ENV !== "production",
 });
