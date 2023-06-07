@@ -12,7 +12,7 @@ router.post(async (req, res) => {
   await db.connect();
   //   look for user
   const user = await User.findOne({ email: req.body.email });
-  await db.disconnect();
+  // await db.disconnect();
 
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
     // sign a token to securely handle user info from utils

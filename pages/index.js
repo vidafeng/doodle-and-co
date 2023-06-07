@@ -26,6 +26,7 @@ export default function Home() {
       setError(false);
       const res = await fetch("/api/products");
       const newProducts = await res.json();
+      // console.log("received products", newProducts);
       setProducts(newProducts);
     } catch (err) {
       setError(true);

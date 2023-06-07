@@ -7,18 +7,22 @@ import Product from "../../../models/Product";
 const router = createRouter();
 
 router.get(async (req, res) => {
-  await db.connect();
+  try {
+    await db.connect();
 
-  // passing empty object - find all product
-  const products = await Product.find({});
-  // console.log("inside api prod", products);
-  await db.disconnect(products);
-  // res.send(products);
+    // passing empty object - find all product
+    const products = await Product.find({});
 
-  if (products) {
-    res.send(products);
-  } else {
-    res.status(404).send({ message: "Product not found" });
+    // await db.disconnect();
+    // console.log("inside api prod", products);
+
+    if (products) {
+      res.send(products);
+    } else {
+      res.status(404).send({ message: "Product not found" });
+    }
+  } catch (err) {
+    throw new Error(err);
   }
 });
 
@@ -26,7 +30,7 @@ router.get(async (req, res) => {
 // onError and onNoMatch
 export default router.handler({
   onError: (err, req, res) => {
-    console.error(err.stack);
+    console.error("inside api prod", err.stack);
     res.status(500).send("Something broke!");
   },
   onNoMatch: (req, res) => {

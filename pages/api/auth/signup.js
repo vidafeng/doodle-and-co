@@ -37,7 +37,7 @@ async function handler(req, res) {
       res.status(422).json({
         message: "This email address is already in use",
       });
-      db.disconnect();
+      // db.disconnect();
       return;
     }
 
@@ -53,9 +53,9 @@ async function handler(req, res) {
 
     res.status(201).json({ message: "New user created successfuly" });
 
-    await db.disconnect();
+    // await db.disconnect();
   } catch (error) {
-    console.log(error);
+    console.log("api signup error", error);
   }
 }
 

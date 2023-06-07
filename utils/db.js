@@ -21,16 +21,12 @@ async function connect() {
     await mongoose.disconnect();
   }
 
-  try {
-    const db = await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("new connection");
-    connection.isConnected = db.connections[0].readyState;
-  } catch (error) {
-    console.log(error);
-  }
+  const db = await mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  console.log("new connection");
+  connection.isConnected = db.connections[0].readyState;
 }
 
 // disconnect function
@@ -39,12 +35,15 @@ async function disconnect() {
     // if in production, disconenct
     // if on local will skip
     // if (process.env.NODE_ENV === "production") {
-    await mongoose.disconnect();
+    // await mongoose.disconnect();
+    await mongoose.connection.close();
+
     connection.isConnected = "false";
   } else {
     console.log("not disconnected");
   }
 }
+// }
 
 // convert timestamps from db models
 function convertDocToObj(doc) {
