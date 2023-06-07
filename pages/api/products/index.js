@@ -12,13 +12,13 @@ router.get(async (req, res) => {
   // passing empty object - find all product
   const products = await Product.find({});
   // console.log("inside api prod", products);
-  db.disconnect(products);
+  await db.disconnect(products);
   // res.send(products);
 
   if (products) {
     res.send(products);
   } else {
-    res.status(404).send({ message: "Products not found" });
+    res.status(404).send({ message: "Product not found" });
   }
 });
 
