@@ -21,12 +21,16 @@ async function connect() {
     await mongoose.disconnect();
   }
 
-  const db = await mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  console.log("new connection");
-  connection.isConnected = db.connections[0].readyState;
+  try {
+    const db = await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("new connection");
+    connection.isConnected = db.connections[0].readyState;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // disconnect function
@@ -34,12 +38,11 @@ async function disconnect() {
   if (connection.isConnected) {
     // if in production, disconenct
     // if on local will skip
-    if (process.env.NODE_ENV === "production") {
-      await mongoose.disconnect();
-      connection.isConnected = "false";
-    } else {
-      console.log("not disconnected");
-    }
+    // if (process.env.NODE_ENV === "production") {
+    await mongoose.disconnect();
+    connection.isConnected = "false";
+  } else {
+    console.log("not disconnected");
   }
 }
 

@@ -26,32 +26,37 @@ async function handler(req, res) {
     return;
   }
 
-  await db.connect();
+  try {
+    await db.connect();
+    console.log("inside sign up connect");
 
-  //   check if user exists
-  const existingUser = await User.findOne({ email: email });
+    //   check if user exists
+    const existingUser = await User.findOne({ email: email });
 
-  if (existingUser) {
-    res.status(422).json({
-      message: "This email address is already in use",
+    if (existingUser) {
+      res.status(422).json({
+        message: "This email address is already in use",
+      });
+      db.disconnect();
+      return;
+    }
+
+    //   hash password
+    //   go to utils auth.js
+    const hashedPassword = await hashPassword(password);
+
+    const result = await User.create({
+      name: name,
+      email: email,
+      password: hashedPassword,
     });
-    db.disconnect();
-    return;
+
+    res.status(201).json({ message: "New user created successfuly" });
+
+    await db.disconnect();
+  } catch (error) {
+    console.log(error);
   }
-
-  //   hash password
-  //   go to utils auth.js
-  const hashedPassword = await hashPassword(password);
-
-  const result = await User.create({
-    name: name,
-    email: email,
-    password: hashedPassword,
-  });
-
-  res.status(201).json({ message: "New user created successfuly" });
-
-  await db.disconnect();
 }
 
 export default handler;

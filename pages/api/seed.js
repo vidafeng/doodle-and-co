@@ -9,10 +9,8 @@ const router = createRouter();
 
 router.get(async (req, res) => {
   await db.connect();
-  console.log("after connect");
   await Product.deleteMany();
   await Product.insertMany(data.products);
-
 
   await db.disconnect();
 
