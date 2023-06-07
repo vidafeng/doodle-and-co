@@ -13,7 +13,7 @@ export default NextAuth({
 
       async authorize(credentials) {
         const authResponse = await fetch(
-          "https://doodleco.vercel.app/api/users/login",
+          "http://localhost:3000/api/users/login",
           {
             method: "POST",
             headers: {
