@@ -2,7 +2,7 @@
 Deployed: https://doodleco.vercel.app/
 
 ## Description
-Doodle and Co is an ecommerce fullstack application with a pup accessories catalog, shopping cart, and checkout. Includes a responsive layout that is mobile friendly!
+Doodle and Co is an ecommerce fullstack application with a pup accessories catalog, shopping cart, and checkout. Includes a responsive layout that is both mobile and dark mode friendly.
 
 ## Features
   - User signup and login
