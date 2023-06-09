@@ -14,7 +14,7 @@ router.post(async (req, res) => {
     });
 
     const order = await newOrder.save();
-    await db.disconnect();
+    // await db.disconnect();
     res.send({ message: "order saved", data: order });
   } catch (error) {
     res.send({ message: error });

@@ -12,7 +12,7 @@ const OrderConfirmationPage = () => {
       <Card>
         <CardHeader>Thank you for your order!</CardHeader>
         <CardBody>
-          <p>Order ID:{id}</p>
+          <p>Order ID: {id}</p>
         </CardBody>
       </Card>
     </div>

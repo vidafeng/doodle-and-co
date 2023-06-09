@@ -45,7 +45,11 @@ const OrderReview = () => {
   const [isPaid, setIsPaid] = useState(false);
   const [error, setError] = useState(false);
   const [orderLoading, setOrderLoading] = useState(false);
-  const [orderIdDB, setOrderIdDB] = useState(null);
+  const [orderIdDB, setOrderIdDB] = useState("");
+
+  useEffect(() => {
+    console.log("orderIdDB", orderIdDB);
+  }, [orderIdDB]);
 
   useEffect(() => {
     if (displayPaypalButton) {
@@ -71,7 +75,9 @@ const OrderReview = () => {
     }
   }, [displayPaypalButton]);
 
-  const handlePlaceOrder = async () => {
+  const handlePlaceOrder = async (e) => {
+    e.preventDefault();
+
     setOrderLoading(true);
     // save order details to database
     const user_id = session.user._id;
@@ -104,16 +110,19 @@ const OrderReview = () => {
     fetch("/api/orders", {
       method: "POST",
       headers: {
-        "Content-Type": "/application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(reqBody),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("data order review:", data);
-        setOrderIdDB(data._id);
+        let responseData = data;
+        // console.log("this is response data", responseData.data._id);
+        setOrderIdDB(responseData.data._id);
+        // console.log("inside data order review:", data);
         setDisplayPaypalButton(true);
       })
+
       .catch((err) => {
         setError(true);
       });
@@ -139,6 +148,12 @@ const OrderReview = () => {
   // use authorizes payment
   const onApprove = (data, actions) => {
     return actions.order.capture().then(async (details) => {
+      console.log("details", details);
+
+      // update order status in db
+      const { id: payment_id, status } = details;
+      const email_address = details.payer.email_address;
+
       setIsPaid(true);
       toast({
         title: "Payment Successful!",
@@ -147,10 +162,6 @@ const OrderReview = () => {
         duration: 9000,
         isClosable: true,
       });
-
-      // update order status in db
-      const { id: payment_id, status } = details;
-      const email_address = details.payer.email_address;
 
       try {
         const response = await fetch("/api/payment/details", {
