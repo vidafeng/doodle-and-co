@@ -20,7 +20,10 @@ Doodle and Co is an ecommerce fullstack application with a pup accessories catal
   - Redux
   - Chakra UI
   - MongoDB
-  - NextAuth
+  - Mongoose
+  - NextAuth.js
+  - Paypal Sandbox
+
 
 
 
